@@ -91,27 +91,37 @@ Route::controller(userController::class)->group(function () {
 Route::controller(homeController::class)->group(function () {
     Route::get('/', 'viewHome')->name('viewHome')->middleware(validUser::class);
 });
-Route::controller(CustomerController::class)->group(function () {
+
+Route::controller(CustomerController::class)->middleware(validUser::class)->group(function () {
     Route::post('/storeCustomerDetail', 'storeCustomerDetail')->name('storeCustomerDetail');
     Route::post('/customerStatus/{id}', 'customerStatus')->name('customerStatus');
-    Route::get('/customerSalesTable', 'customerSalesTable')->name('customerSalesTable')->middleware(validUser::class);
-    Route::get('/customerLeadTable', 'customerLeadTable')->name('customerLeadTable')->middleware(validUser::class);
-    Route::get('/customerTrialTable', 'customerTrialTable')->name('customerTrialTable')->middleware(validUser::class);
-    Route::get('/customer-numbers', 'viewCunstomerNumberTable')->name('viewCunstomerNumberTable')->middleware(validUser::class);
-    Route::post('/{id}/storeCustomerNumbersDetails', 'storeCustomerNumbersDetails')->name('storeCustomerNumbersDetails')->middleware(validUser::class);
-    Route::get('/{id}/edit-customer-numbers', 'viewCustomerNumberEditForm')->name('viewCustomerNumberEditForm')->middleware(validUser::class);
-    Route::get('/{id}/add-old-customer-data', 'viewOldCustomerNewPKG')->name('viewOldCustomerNewPKG')->middleware(validUser::class);
-    Route::post('/{id}/storeOldCustomerNewPKGData', 'storeOldCustomerNewPKGData')->name('storeOldCustomerNewPKGData')->middleware(validUser::class);
-    Route::post('/{id}/storeCustomerNumberEditDetails', 'storeCustomerNumberEditDetails')->name('storeCustomerNumberEditDetails')->middleware(validUser::class);
-    Route::get('/{id}/edit-sale', 'viewEditCustomerSaleDetailForm')->name('viewEditCustomerSaleDetailForm')->middleware(validUser::class);
-    Route::post('/{id}/storeEditCustomerSaleDetails', 'storeEditCustomerSaleDetails')->name('storeEditCustomerSaleDetails')->middleware(validUser::class);
-    Route::get('/{id}/update-lead', 'viewleadEditForm')->name('viewleadEditForm')->middleware(validUser::class);
-    Route::get('/{id}/update-trial', 'viewTrialEditForm')->name('viewTrialEditForm')->middleware(validUser::class);
-    Route::get('/customerDeniedTable', 'customerDeniedTable')->name('customerDeniedTable')->middleware(validUser::class);
-    Route::post('/{id}/storeUpdateLeadData', 'storeUpdateLeadData')->name('storeUpdateLeadData')->middleware(validUser::class);
-    Route::post('/{id}/storeUpdateTrialData', 'storeUpdateTrialData')->name('storeUpdateTrialData')->middleware(validUser::class);
-    Route::get('/meeting', 'viewMeetingPage')->name('viewMeetingPage')->middleware(validUser::class);
+
+    Route::get('/customerSalesTable', 'customerSalesTable')->name('customerSalesTable');
+    Route::get('/customerLeadTable', 'customerLeadTable')->name('customerLeadTable');
+    Route::get('/customerTrialTable', 'customerTrialTable')->name('customerTrialTable');
+    Route::get('/customer-numbers', 'viewCunstomerNumberTable')->name('viewCunstomerNumberTable');
+
+    Route::post('/{id}/storeCustomerNumbersDetails', 'storeCustomerNumbersDetails')->name('storeCustomerNumbersDetails');
+    Route::get('/{id}/edit-customer-numbers', 'viewCustomerNumberEditForm')->name('viewCustomerNumberEditForm');
+    Route::post('/{id}/storeCustomerNumberEditDetails', 'storeCustomerNumberEditDetails')->name('storeCustomerNumberEditDetails');
+
+    Route::get('/{id}/add-old-customer-data', 'viewOldCustomerNewPKG')->name('viewOldCustomerNewPKG');
+    Route::post('/{id}/storeOldCustomerNewPKGData', 'storeOldCustomerNewPKGData')->name('storeOldCustomerNewPKGData');
+
+    Route::get('/{id}/edit-sale', 'viewEditCustomerSaleDetailForm')->name('viewEditCustomerSaleDetailForm');
+    Route::post('/{id}/storeEditCustomerSaleDetails', 'storeEditCustomerSaleDetails')->name('storeEditCustomerSaleDetails');
+
+    Route::get('/{id}/update-lead', 'viewleadEditForm')->name('viewleadEditForm');
+    Route::post('/{id}/storeUpdateLeadData', 'storeUpdateLeadData')->name('storeUpdateLeadData');
+
+    Route::get('/{id}/update-trial', 'viewTrialEditForm')->name('viewTrialEditForm');
+    Route::post('/{id}/storeUpdateTrialData', 'storeUpdateTrialData')->name('storeUpdateTrialData');
+
+    Route::get('/customerDeniedTable', 'customerDeniedTable')->name('customerDeniedTable');
+    Route::get('/meeting', 'viewMeetingPage')->name('viewMeetingPage');
+    Route::get('/meeting-done', 'viewMeetingDonePage')->name('viewMeetingDonePage');
 });
+
 
 Route::controller(HelpController::class)->group(function () {
     Route::get('/help-Request', 'viewHelpForm')->name('help')->middleware(validUser::class);

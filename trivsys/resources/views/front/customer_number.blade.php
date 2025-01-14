@@ -1,15 +1,8 @@
 @extends('layout.index')
 @extends('front.nav')
+@extends('front.search')
 
 @section('home')
-
-    {{-- Search customer details --}}
-    <div class="w-full h-[80px] flex justify-center items-center bg-[#1D4ED8]">
-        <input type="text" name="" onkeyup="searchTable()" id="searchInput" placeholder="Search Customer"
-            class="w-[50%] py-2 px-3 outline-none border-0 rounded">
-    </div>
-    {{-- Search customer details --}}
-
 
     <div class="w-full mx-auto mt-3 mb-5 overflow-x-auto">
         <table class="w-full table-auto border-collapse border border-gray-200 mx-auto">
@@ -140,26 +133,6 @@
     {{-- Show Customer Details --}}
 
     <script>
-        function searchTable() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
-            const tableBody = document.getElementById("tableBody");
-            const rows = tableBody.getElementsByTagName("tr");
-
-            for (let i = 0; i < rows.length; i++) {
-                const customerNameCell = rows[i].getElementsByTagName("td")[0];
-                const customerNumberCell = rows[i].getElementsByTagName("td")[1];
-                if (customerNameCell && customerNumberCell) {
-                    const customerName = customerNameCell.textContent.toLowerCase();
-                    const customerNumber = customerNumberCell.textContent.toLowerCase();
-
-                    if (customerName.includes(searchInput) || customerNumber.includes(searchInput)) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
-                    }
-                }
-            }
-        }
 
         let copyNumbers = document.querySelectorAll('.copy');
         let clientNumbers = document.querySelectorAll('.number');

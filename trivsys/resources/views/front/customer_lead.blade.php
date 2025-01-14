@@ -1,16 +1,8 @@
 @extends('layout.index')
 @extends('front.nav')
+@extends('front.search')
 
 @section('home')
-    {{-- search customer details --}}
-    <div class="w- full h-[80px] flex justify-center place-items-center bg-[#1D4ED8] ">
-        <input type="text" name="" onkeyup="searchTable()" id="searchInput" placeholder="Search Customer"
-            class="w-[50%] py-2 px-3 outline-none border-0 rounded">
-    </div>
-    {{-- search customer details --}}
-
-
-
 
     {{-- Show Customer Details --}}
 
@@ -49,7 +41,7 @@
                                 No Registration Date
                             @endif
                         </td>
-                        <td class="px-4 py-2 border border-gray-300 customer hidden md:table-cell">{{ $user->name }}</td>
+                        <td class="px-4 py-2 border border-gray-300 customer hidden md:table-cell">{{ $customer['user']->name }}</td>
                         @if ($customer->status === 'lead')
                             <form action="{{ route('customerStatus', $customer->id) }}" method="POST">
                                 @csrf
@@ -58,6 +50,7 @@
                                     <button class="btn btn-success" id="statusBtn">sale</button>
                                     <button class="btn btn-danger" id="statusBtn">trial</button>
                                     <button class="btn btn-dark" id="statusBtn">denied</button>
+                                    <button class="btn btn-info text-white" id="statusBtn">meeting</button>
                                     <a href="{{route('viewleadEditForm',$customer->id)}}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                 </td>
                             </form>
@@ -86,36 +79,4 @@
     {{-- Show Customer Details --}}
 
 
-    <script>
-        function searchTable() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
-            const tableBody = document.getElementById("tableBody");
-            const rows = tableBody.getElementsByTagName("tr");
-
-            for (let i = 0; i < rows.length; i++) {
-                let customerName = rows[i].getElementsByTagName("td")[1].textContent.toLowerCase();
-                let customerNumber = rows[i].getElementsByTagName("td")[2].textContent.toLowerCase();
-                if (customerName.includes(searchInput) || customerNumber.includes(searchInput)) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
-            }
-        }
-
-        let statusInput = document.querySelectorAll('#input');
-        let statusBtn = document.querySelectorAll('#statusBtn');
-
-        statusBtn.forEach((btn) => {
-            btn.addEventListener('click', function(e) {
-                target = e.target;
-                text = target.textContent;
-
-                statusInput.forEach((input) => {
-                    input.value = text;
-                })
-
-            });
-        });
-    </script>
 @endsection

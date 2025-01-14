@@ -74,6 +74,7 @@ class userController extends Controller
           'phone' => $phone,
           'address' => $address,
           'password' => Hash::make($req->user_password),
+          'ip_address' => '0',
           'created_at' => now(),
           'updated_at' => now(),
         ]);

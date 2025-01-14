@@ -365,5 +365,14 @@ class CustomerController extends Controller
      return view('front.meeting',compact('customers'));
    }
 
+   public function viewMeetingDonePage(){
+     $customers = Customer::with('user')
+                         ->where('status','meeting done')
+                        ->where('a_name',Auth::id())
+                        ->orderByRaw('MONTH(regitr_date) desc')
+                        ->get();
+     return view('front.meeting_done',compact('customers'));
+   }
+
 
 }
