@@ -64,6 +64,22 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('viewAgentMeeting') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-handshake-angle"></i>
+                                <p>
+                                    All Agent Meeting
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('viewAgentSaleTable') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-handshake-angle"></i>
+                                <p>
+                                    All Agent Meeting Done
+                                </p>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         <a href="{{ route('viewAgentTrialTable') }}" class="nav-link">

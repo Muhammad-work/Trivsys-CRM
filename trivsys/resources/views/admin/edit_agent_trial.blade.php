@@ -71,6 +71,7 @@
                                             <option value="sale">Sale</option>
                                             <option value="lead">Lead</option>
                                             <option value="trial">Trial</option>
+                                            <option value="meeting">Meeting</option>
                                         </select>
                                         @error('status')
                                             <span class="text-danger">{{ $message }}</span>
@@ -86,14 +87,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-6 mt-2">
-                                        <label for="exampleInputEmail1">Mac Address</label>
-                                        <input type="text" class="form-control" name="make_address" id="exampleInputEmail1"
-                                            placeholder="Enter Mac Address" value="{{ $customer->make_address }}">
-                                        @error('make_address')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
                                     <div class="col-6 mt-2">
                                         <label for="exampleInputEmail1">CUSTOMER REGISTRATION DATE</label>
                                         <input type="date" class="form-control" name="date" id="exampleInputEmail1"

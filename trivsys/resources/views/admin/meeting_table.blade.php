@@ -8,11 +8,9 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 d-inline">All Agent Sale Report</h1>
+                        <h1 class="m-0 d-inline">All Agent Meeting Report</h1>
                     </div><!-- /.col -->
-                    {{-- <div class="col-sm-4">
-                        <h1 class="m-0 d-inline"><a href="{{ route('addUser') }}" class="btn btn-primary">Add New</a></h1>
-                    </div><!-- /.col --> --}}
+
                     <div class="col-sm-6">
                         <form action="" method="get" id="filterbyMonthForm">
                             <label for="exampleInputEmail1">Filter By Month</label>
@@ -64,15 +62,14 @@
                                         <td>${{ $customer->price }}</td>
                                         <td>{{ $customer->remarks }}</td>
                                         <td><span
-                                                class="bg-success py-1 px-2 rounded block mt-5">{{ $customer->status }}</span>
+                                                class="bg-info  py-1 px-2 rounded block mt-5">{{ $customer->status }}</span>
                                         </td>
 
-                                        <td> {{ $customer['user']->name }}</td>
-
+                                        <td>{{ $customer['user']->name }}</td>
                                         <td>
-                                            <a href="{{ route('cutomerUPdateSaleDetailFormVIew', $customer->id) }}"
+                                            <a href="{{ route('cutomerMeetingUPdateDetailFormVIew', $customer->id) }}"
                                                 class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                            <a href="{{ route('deleteSaleCustomerDetails', $customer->id) }}"
+                                            <a href="{{ route('deleteMeetingCustomerDetails', $customer->id) }}"
                                                 class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -85,7 +82,6 @@
                 </div>
             </div>
 
-
             <script>
                 let fileByMonth = document.querySelector('#filterbyMonth');
                 let FilterMonthForm = document.querySelector('#filterbyMonthForm');
@@ -94,3 +90,7 @@
                 });
             </script>
         @endsection
+
+
+
+

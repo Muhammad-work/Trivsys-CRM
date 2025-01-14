@@ -41,8 +41,6 @@
                                     <th>REMARKS</th>
                                     <th>STATUS</th>
                                     <th>AGENT NAME</th>
-                                    <th>MAC ADDRESS</th>
-                                    <td>Date</td>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -66,17 +64,7 @@
                                                 class="bg-warning  py-1 px-2 rounded block mt-5">{{ $customer->status }}</span>
                                         </td>
 
-                                        <td>{{ $customer->user_name }}</td>
-                                        <td>
-                                            @if ($customer->make_address)
-                                                {{ $customer->make_address }}
-                                            @else
-                                                No Mac Address
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($customer->created_at)->format('d M, Y') }}
-                                        </td>
+                                        <td>{{ $customer['user']->name }}</td>
                                         <td>
                                             <a href="{{ route('cutomerUPdateDetailFormVIew', $customer->id) }}"
                                                 class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>

@@ -44,9 +44,6 @@ class CustomerController extends Controller
          $customer->regitr_date = $req->date;
         $customer->save();
 
-        $customer->user_name = Auth::user()->name;
-        $customer->save();
-
         return back()->with(['success' => 'Customer Created Successfully']);
     }
 

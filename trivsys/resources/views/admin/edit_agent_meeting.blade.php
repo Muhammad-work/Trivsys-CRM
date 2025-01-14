@@ -16,7 +16,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('cutomerUPdateDetailStore', $customer->id) }}" method="POST"
+                        <form action="{{ route('cutomerMeetingUPdateDetailStore', $customer->id) }}" method="POST"
                             enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <div class="card-body">
@@ -100,7 +100,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <a href="{{ route('viewAgentLeadlTable') }}" class="btn btn-primary">Back</a>
+                                <a href="{{ route('viewMeetingTable',$customer['user']->id) }}" class="btn btn-primary">Back</a>
                                 <button class="btn btn-primary">Update</button>
                             </div>
                         </form>
