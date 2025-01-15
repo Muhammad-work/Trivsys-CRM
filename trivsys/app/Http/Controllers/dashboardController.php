@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\user;
 use App\Models\help;
 use App\Models\customer;
-use App\Models\client_number;
-use App\Models\customerNumber;
 use App\Models\oldCustomer;
 use Carbon\Carbon;
 
 class dashboardController extends Controller
 {
     public function viewDashboard(Request $req) {
-        // Determine the month and year to query based on the provided date or current date
         $date = $req->date ?? now(); // Use provided date or fallback to current date
         $month = date('m', strtotime($date));
         $year = date('Y', strtotime($date));
@@ -256,7 +253,7 @@ public function cutomerUPdateDetailSaleStore(Request $req, string $id){
       $customer = customer::find($id);
 
      return view('admin.edit_agent_trial',compact('customer'));
-}
+    }
 
 public function cutomerUPdateDetailTrialStore(Request $req, string $id){
   $req->validate([
@@ -265,7 +262,7 @@ public function cutomerUPdateDetailTrialStore(Request $req, string $id){
     'price' => 'required|numeric',
     'remarks' => 'required',
     'status' => 'required',
-]);
+  ]);
 
     $customer = customer::find($id);
     $email = $req->customer_email ?: 'No Email';
@@ -408,172 +405,9 @@ public function cutomerUPdateDetailTrialStore(Request $req, string $id){
       return redirect()->route('viewAgentSaleTable')->with(['success' => 'Customer Sale Days Is Start Now']);
      }
 
-
-     public function viewCustomerNumber(){
-
-        $allCustomerNumber = CustomerNumber::with('user')->select('agent', \DB::raw('count(*) as total'))
-                                ->groupBy('agent')
-                                ->get();
-        return view('admin.customer_number',compact('allCustomerNumber'));
-     }
-
-
-     public function viewCustomerNumberForm(){
-
-         $agentName = User::select('name','id')->where('role','user')->get();
-         $allClientNumbersCount = client_number::count();
-         return view('admin.add_customer_number',compact(['agentName','allClientNumbersCount']));
-     }
-
-
-     public function viewNumbersTable(){
-        $numbers = client_number::get();
-        return view('admin.number',compact('numbers'));
-     }
-
      public function viewAddNumbersForm(){
         return view('admin.add_number');
      }
-
-     public function storeNumbers(Request $req){
-     $customerNumberArray = explode("\r\n", $req->customerNumber);
-      foreach ($customerNumberArray as $number) {
-              $number = trim($number);
-              $existingNumber = client_number::where('number', $number)->first();
-              if (!$existingNumber) {
-                    client_number::create([
-                       'number' => $number
-                    ]);
-                }else{
-                    return redirect()->route('viewNumbersTable')->with(['error' => 'You Can Not Add Same Numbers']);
-                }
-            }
-            return redirect()->route('viewNumbersTable')->with(['success' => 'Add Numbers Successfuly']);
-     }
-
-
-     public function storeCustomerNumbers(Request $req){
-        $req->validate([
-            'agent' => 'required',
-            'date' => 'required|date',
-            'number' => 'required|integer|min:1',
-        ]);
-
-
-        $number = $req->input('number');
-
-
-        $clientNumbers = client_number::select('number','id')->take($number)->get();
-        $customerName = 'No Customer Name';
-
-        foreach ($clientNumbers as $clientNumber) {
-            customerNumber::create([
-                'customer_name' => $customerName,
-                'customer_number' => $clientNumber->number,
-                'agent' => $req->agent,
-                'date' => $req->date,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
-
-        $clientNumbers->each(function($clientNumber) {
-            $clientNumber->delete();
-        });
-
-        return redirect()->route('viewNumbersTable')->with(['success' => 'Distribute To Customer Numbers Successfully']);
-
-       }
-
-
-       public function viewAgentDistributeNumbersDetail(string $id){
-          $customerResponseReports = customerNumber::with('user')->where('agent',$id)->get();
-          return view('admin.customer_response',compact('customerResponseReports'));
-       }
-
-
-       public function viewAgentDistributeNumbersForm(){
-           $allAgent = customerNumber::with('user')->select('agent')->groupby('agent')->get();
-           return view('admin.dis_to_agent_number',compact('allAgent'));
-       }
-
-       public function distributeNumberToAgent(Request $req){
-        $req->validate([
-            'old_agent' => 'required',
-            'date' => 'required',
-            'new_agent' => 'required',
-        ]);
-
-        $old_agent = customerNumber::where('agent', $req->old_agent)->get();
-        $new_agent = customerNumber::where('agent', $req->new_agent)->get();
-
-        $CustomerName = 'No Customer Name';
-        $ExpriyDate = $req->date;
-        $status = 'pending';
-        $remarks = null;
-
-        foreach ($old_agent as $old_Data) {
-            foreach ($new_agent as $new_Data) {
-                $oldAgent = $old_Data->agent;
-                $newAgent = $new_Data->agent;
-
-                $old_Data->agent = $newAgent;
-                $new_Data->agent = $oldAgent;
-
-
-                $old_Data->customer_name = $CustomerName;
-                $old_Data->date = $ExpriyDate;
-                $old_Data->status = $status;
-                $old_Data->remarks = $remarks;
-
-                $new_Data->customer_name = $CustomerName;
-                $new_Data->date = $ExpriyDate;
-                $new_Data->status = $status;
-                $new_Data->remarks = $remarks;
-
-                $old_Data->save();
-                $new_Data->save();
-            }
-        }
-
-        return redirect()->route('viewCustomerNumber')->with(['success' => 'Distribute Numbers Successfully']);
-
-       }
-
-       public function viewAgentDistributeSale(string $id){
-        $agentName = Customer::select('a_name')->with('user')->where('status','sale')->groupBy('a_name')->where('a_name','!=',$id)->get();
-        $agentID = user::find($id);;
-        return view('admin.dis_sale',compact(['agentName','agentID']));
-       }
-
-       public function updateSaleAgent(Request $req,string $id){
-            $CustomerSaleAgent = customer::where('status', 'sale')->where('a_name', $id)->get();
-            $disSaleAgent = customer::where('status', 'sale')->where('a_name', $req->agent)->get();
-
-            $oldCustomerSaleAgent = oldcustomer::where('status', 'sale')->where('agent', $id)->get();
-
-            foreach ($CustomerSaleAgent as $oldAgent) {
-                foreach ($disSaleAgent as $newAgent) {
-                     $oldAgent->a_name = $newAgent->a_name;
-                     $oldAgent->user_name = $newAgent->user_name;
-
-                     $oldAgent->save();
-                }
-            }
-
-           foreach ($oldCustomerSaleAgent as $oldAgent) {
-               foreach ($disSaleAgent as $newAgent) {
-                   $oldAgent->agent = $newAgent->a_name;
-
-                   $oldAgent->save();
-               }
-           }
-
-     return redirect()->route('viewAgentSaleTable')->with(['success' => 'Distribute Sale Successfully']);
-
-     }
-
 
      public function viewAgentMeeting(){
         $customers = Customer::with('user')
@@ -677,5 +511,55 @@ public function cutomerUPdateDetailTrialStore(Request $req, string $id){
         $customer->delete();
         return  redirect()->route('viewAgentMeeting')->with(['success' => 'Customer Detail Deleted Successfuly']);
      }
+
+
+     public function  viewAgentMeetingDoneTable(){
+
+        $customers = Customer::with('user')
+       ->where('status', 'meeting done')
+       ->orderByRaw('MONTH(regitr_date) asc')
+       ->get();
+        return view('admin.meeting_done',compact('customers'));
+      }
+
+      public function cutomerUPdateMeetingDoneDetailFormVIew(string $id){
+        $customer = customer::find($id);
+
+       return view('admin.edit_meeting_done',compact('customer'));
+      }
+
+      public function cutomerUPdateDetailMeetingDoneStore(Request $req, string $id){
+        $req->validate([
+          'customer_name' => 'required|string',
+          'customer_number' => 'required|numeric',
+          'price' => 'required|numeric',
+          'remarks' => 'required',
+          'status' => 'required',
+        ]);
+
+          $customer = customer::find($id);
+          $email = $req->customer_email ?: 'No Email';
+          $customer->update([
+            'customer_name' => $req->customer_name,
+            'customer_email' => $email,
+            'customer_number' => $req->customer_number,
+            'price' => $req->price,
+            'remarks' => $req->remarks,
+            'status' => $req->status,
+              'regitr_date' => $req->date,
+          ]);
+
+           $customer->regitr_date = $req->date;
+          $customer->save();
+
+          return  redirect()->route('viewAgentMeetingDoneTable')->with(['success' => 'Customer Detail Update Successfuly']);
+       }
+
+       public function deleteCustomerMeetingDoneDetails(string $id){
+        $customer = customer::find($id);
+        $customer->delete();
+        return  redirect()->route('viewAgentMeetingDoneTable')->with(['success' => 'Customer Deleted Successfuly']);
+    }
+
 
 }

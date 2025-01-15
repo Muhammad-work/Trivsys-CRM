@@ -37,28 +37,22 @@ Route::controller(dashboardController::class)->group(function () {
     Route::post('/dashboard/{id}/update-customer-sale-status', 'updateSaleCustomerStatus')->name('updateSaleCustomerStatus')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/add-customer-sale-day', 'viewSaleDaysForm')->name('viewSaleDaysForm')->middleware(validUser::class)->middleware(validRole::class);
     Route::post('/dashboard/{id}/addSaleCustomerStatus', 'addSaleCustomerStatus')->name('addSaleCustomerStatus')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/customer-numbers', 'viewCustomerNumber')->name('viewCustomerNumber')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/add-customer-numbers', 'viewCustomerNumberForm')->name('viewCustomerNumberForm')->middleware(validUser::class)->middleware(validRole::class);
-    Route::post('/dashboard/storeCustomerNumbers', 'storeCustomerNumbers')->name('storeCustomerNumbers')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/all-numbers', 'viewNumbersTable')->name('viewNumbersTable')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/add-numbers', 'viewAddNumbersForm')->name('viewAddNumbersForm')->middleware(validUser::class)->middleware(validRole::class);
-    Route::post('/dashboard/storeNumbers', 'storeNumbers')->name('storeNumbers')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/{id}/customer-response', 'viewAgentDistributeNumbersDetail')->name('viewAgentDistributeNumbersDetail')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/all-agent-sale-reports/{id}/', 'viewSaleTable')->name('viewSaleTable')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/all-agent-lead-reports/{id}/', 'viewleadtable')->name('viewleadtable')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/distribute-lead/{id}/', 'distributeLeadsForm')->name('distributeLeadsForm')->middleware(validUser::class)->middleware(validRole::class);
     Route::post('/dashboard/updateLeadAgent/{id}', 'updateLeadAgent')->name('updateLeadAgent')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/distribute-number', 'viewAgentDistributeNumbersForm')->name('viewAgentDistributeNumbersForm')->middleware(validUser::class)->middleware(validRole::class);
-    Route::post('/dashboard/distributeNumberToAgent', 'distributeNumberToAgent')->name('distributeNumberToAgent')->middleware(validUser::class)->middleware(validRole::class);
-    Route::get('/dashboard/{id}/distributesaleToAgent', 'viewAgentDistributeSale')->name('viewAgentDistributeSale')->middleware(validUser::class)->middleware(validRole::class);
-    Route::post('/dashboard/{id}/updateSaleAgent', 'updateSaleAgent')->name('updateSaleAgent')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/all-agent-meeting', 'viewAgentMeeting')->name('viewAgentMeeting')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/all-agent-meeting-table', 'viewMeetingTable')->name('viewMeetingTable')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/viewAgentDistributeMeeting', 'viewAgentDistributeMeeting')->name('viewAgentDistributeMeeting')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/cutomerMeetingUPdateDetailFormVIew', 'cutomerMeetingUPdateDetailFormVIew')->name('cutomerMeetingUPdateDetailFormVIew')->middleware(validUser::class)->middleware(validRole::class);
     Route::post('/dashboard/{id}/cutomerMeetingUPdateDetailStore', 'cutomerMeetingUPdateDetailStore')->name('cutomerMeetingUPdateDetailStore')->middleware(validUser::class)->middleware(validRole::class);
     Route::post('/dashboard/{id}/updateMeetingAgent', 'updateMeetingAgent')->name('updateMeetingAgent')->middleware(validUser::class)->middleware(validRole::class);
+    Route::post('/dashboard/{id}/cutomerUPdateDetailMeetingDoneStore', 'cutomerUPdateDetailMeetingDoneStore')->name('cutomerUPdateDetailMeetingDoneStore')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/deleteMeetingCustomerDetails', 'deleteMeetingCustomerDetails')->name('deleteMeetingCustomerDetails')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/{id}/cutomerUPdateMeetingDoneDetailFormVIew', 'cutomerUPdateMeetingDoneDetailFormVIew')->name('cutomerUPdateMeetingDoneDetailFormVIew')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/{id}/deleteCustomerMeetingDoneDetails', 'deleteCustomerMeetingDoneDetails')->name('deleteCustomerMeetingDoneDetails')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/viewAgentMeetingDoneTable', 'viewAgentMeetingDoneTable')->name('viewAgentMeetingDoneTable')->middleware(validUser::class)->middleware(validRole::class);
 });
 
 
@@ -106,9 +100,7 @@ Route::controller(CustomerController::class)->middleware(validUser::class)->grou
     Route::get('/customerSalesTable', 'customerSalesTable')->name('customerSalesTable');
     Route::get('/customerLeadTable', 'customerLeadTable')->name('customerLeadTable');
     Route::get('/customerTrialTable', 'customerTrialTable')->name('customerTrialTable');
-    Route::get('/customer-numbers', 'viewCunstomerNumberTable')->name('viewCunstomerNumberTable');
-
-    Route::post('/{id}/storeCustomerNumbersDetails', 'storeCustomerNumbersDetails')->name('storeCustomerNumbersDetails');
+  
     Route::get('/{id}/edit-customer-numbers', 'viewCustomerNumberEditForm')->name('viewCustomerNumberEditForm');
     Route::post('/{id}/storeCustomerNumberEditDetails', 'storeCustomerNumberEditDetails')->name('storeCustomerNumberEditDetails');
 

@@ -73,7 +73,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('viewAgentSaleTable') }}" class="nav-link">
+                            <a href="{{ route('viewAgentMeetingDoneTable') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-handshake-angle"></i>
                                 <p>
                                     All Agent Meeting Done
@@ -99,25 +99,6 @@
                             </p>
                         </a>
                     </li>
-
-                    @if (Auth::user()->role === 'admin')
-                        <li class="nav-item">
-                            <a href="{{ route('viewCustomerNumber') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-phone"></i>
-                                <p>
-                                   Customer Respons
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('viewNumbersTable') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-phone"></i>
-                                <p>
-                                   Numbers
-                                </p>
-                            </a>
-                        </li>
-                    @endif
 
                     @if (Auth::user()->role === 'admin')
                         <li class="nav-item">
