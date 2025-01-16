@@ -110,13 +110,13 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3> {{ $help }} </h3>
-                                <p>Total Help Request</p>
+                                <h3> {{ $meeting }} </h3>
+                                <p>Total Agent Meeting Counts</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="{{ route('viewHelpRequestTableDashboard') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('viewAgentMeeting') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>

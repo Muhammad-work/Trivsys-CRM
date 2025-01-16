@@ -13,14 +13,13 @@ use Carbon\Carbon;
 class dashboardController extends Controller
 {
     public function viewDashboard(Request $req) {
-        $date = $req->date ?? now(); // Use provided date or fallback to current date
+        $date = $req->date ?? now();
         $month = date('m', strtotime($date));
         $year = date('Y', strtotime($date));
 
-        // Count users with 'user' role
+
         $userCount = user::where('role', 'user')->count();
 
-        // Calculate sales, trials, and leads for the given month and year
         $oldsale = customer::whereMonth('regitr_date', $month)
                            ->whereYear('regitr_date', $year)
                            ->where('status', 'sale')
@@ -41,10 +40,11 @@ class dashboardController extends Controller
                         ->where('status', 'lead')
                         ->count();
 
-        // Count pending help requests
-        $help = help::where('status', 'pending')->count();
+        $meeting = customer::whereMonth('regitr_date', $month)
+                        ->whereYear('regitr_date', $year)
+                        ->where('status', 'meeting')
+                        ->count();
 
-        // Sum prices for old and new customers
         $oldCutomerprice = Customer::where('status','sale')->whereMonth('regitr_date', $month)
                                    ->whereYear('regitr_date', $year)
                                    ->sum('price');
@@ -53,7 +53,7 @@ class dashboardController extends Controller
                                        ->sum('price');
         $price = $oldCutomerprice + $NewCustomerprice;
 
-        // Get customers whose registration date is today
+
         $oldSalecustomerExpriDate = Customer::with('user')
                                             ->whereDate('regitr_date', today())
                                             ->get();
@@ -61,12 +61,11 @@ class dashboardController extends Controller
                                         ->whereDate('regitr_date', today())
                                         ->get();
 
-        // Merge both sale data
+
         $curentSale = $oldSalecustomerExpriDate->merge($NewSalecurentSale);
 
-        // Return the view with the calculated data
         return view('admin.dashbord', compact([
-            'userCount', 'sale', 'trial', 'lead', 'price', 'help', 'curentSale'
+            'userCount', 'sale', 'trial', 'lead', 'price', 'meeting', 'curentSale'
         ]));
     }
 
