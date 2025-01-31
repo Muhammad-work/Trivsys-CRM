@@ -14,9 +14,10 @@ class customer extends Model
         'remarks',
         'status',
         'a_name',
+        'regitr_date'
     ];
 
-    public  $timestamps = true; 
+    public  $timestamps = true;
 
     public function user(){
        return $this->belongsTo(user::class,'a_name');
@@ -26,10 +27,10 @@ class customer extends Model
         public static function getSalesByAgentAndMonth($agent_id, $month, $year)
         {
             return self::where('a_name', $agent_id)
-                        ->where('status', 'sale') 
+                        ->where('status', 'sale')
                         ->whereMonth('regitr_date', $month)
                         ->whereYear('regitr_date', $year)
                         ->count();
         }
-    
+
 }

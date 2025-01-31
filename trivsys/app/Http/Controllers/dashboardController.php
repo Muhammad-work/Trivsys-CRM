@@ -110,7 +110,6 @@ class dashboardController extends Controller
 
     private function getAllSale($month, $year, $id)
     {
-
         return  $oldcustomers = Customer::with('user')
             ->where('status', 'sale')
             ->whereMonth('regitr_date', $month)
@@ -136,8 +135,6 @@ class dashboardController extends Controller
             'status' => $req['status'],
             'regitr_date' => $req['date'],
         ]);
-        $customer->regitr_date = $req['date'];
-        $customer->save();
     }
 
     public function  viewAgentSaleTable()
