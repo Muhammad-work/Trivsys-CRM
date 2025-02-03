@@ -181,7 +181,6 @@ class dashboardController extends Controller
 
     public function  viewAgentLeadlTable()
     {
-
         $customers = $this->groupByCustomer('lead');
         return view('admin.agent_lead', compact('customers'));
     }
@@ -226,7 +225,6 @@ class dashboardController extends Controller
     public function cutomerUPdateDetailFormVIew(string $id)
     {
         $customer = customer::find($id);
-
         return view('admin.edit_agent_lead', compact('customer'));
     }
 
@@ -255,7 +253,6 @@ class dashboardController extends Controller
 
     public function  viewAgentTrialTable()
     {
-
         $customers = Customer::with('user')
             ->where('status', 'trial')
             ->orderByRaw('MONTH(regitr_date) asc')
@@ -266,7 +263,6 @@ class dashboardController extends Controller
     public function cutomerUPdateTrialDetailFormVIew(string $id)
     {
         $customer = customer::find($id);
-
         return view('admin.edit_agent_trial', compact('customer'));
     }
 
@@ -347,7 +343,6 @@ class dashboardController extends Controller
     public function updateStatusCustomerTrial()
     {
         $customers = Customer::where('active_status', 'active')->get();
-
         foreach ($customers as $customer) {
             if ($customer->date_count > 0) {
                 $customer->date_count = (int) $customer->date_count - 1;
@@ -378,7 +373,6 @@ class dashboardController extends Controller
 
         $startDate = new \DateTime($req->start_date);
         $endDate = new \DateTime($req->end_date);
-
         $interval = $startDate->diff($endDate);
         $daysDifference = $interval->days;
         $customer = Customer::find($id);
@@ -404,10 +398,8 @@ class dashboardController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
-
         $startDate = new \DateTime($req->start_date);
         $endDate = new \DateTime($req->end_date);
-
         $interval = $startDate->diff($endDate);
         $daysDifference = $interval->days;
         $customer = Customer::find($id);
@@ -478,7 +470,6 @@ class dashboardController extends Controller
     public function cutomerMeetingUPdateDetailFormVIew(string $id)
     {
         $customer = customer::find($id);
-
         return view('admin.edit_agent_meeting', compact('customer'));
     }
 
@@ -507,7 +498,6 @@ class dashboardController extends Controller
     }
     public function  viewAgentMeetingDoneTable()
     {
-
         $customers = Customer::with('user')
             ->where('status', 'meeting done')
             ->orderByRaw('MONTH(regitr_date) asc')
@@ -518,7 +508,6 @@ class dashboardController extends Controller
     public function cutomerUPdateMeetingDoneDetailFormVIew(string $id)
     {
         $customer = customer::find($id);
-
         return view('admin.edit_meeting_done', compact('customer'));
     }
 
