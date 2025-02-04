@@ -32,7 +32,7 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3> ${{ $price }} </h3>
+                                    <h3>Rs.{{ $price }} </h3>
 
                                     <p>Total Sales</p>
                                 </div>

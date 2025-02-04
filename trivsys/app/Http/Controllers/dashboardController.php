@@ -426,18 +426,28 @@ class dashboardController extends Controller
 
 
 
+
     public function viewMeetingTable(Request $req, string $id)
     {
-        $date = $req->date ?? now();
-        $month = date('m', strtotime($date));
-        $year = date('Y', strtotime($date));
-        $oldcustomers = Customer::with('user')
-            ->where('status', 'meeting')
-            ->whereMonth('regitr_date', $month)
-            ->whereYear('regitr_date', $year)
-            ->where('a_name', $id)
-            ->get();
+        $month = date('m', strtotime($req->date));
+        $year = date('Y', strtotime($req->date));
+        if ($req->date == null) {
+            $oldcustomers = Customer::with('user')
+                ->where('status', 'meeting')
+                ->orderBy('regitr_date', 'desc')
+                ->where('a_name', $id)
+                ->get();
+        } else {
+            $oldcustomers = Customer::with('user')
+                ->where('status', 'meeting')
+                ->whereMonth('regitr_date', $month)
+                ->whereYear('regitr_date', $year)
+                ->where('a_name', $id)
+                ->get();
+        }
         $customers = $oldcustomers;
+
+        //    return $cus
         return view('admin.meeting_table', compact('customers'));
     }
 
