@@ -16,7 +16,8 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('cutomerUPdateDetailSaleStore',$customer->id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <form action="{{ route('cutomerUPdateDetailSaleStore', $customer->id) }}" method="POST"
+                            enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -65,7 +66,8 @@
                                     <div class="col-6 mt-2">
                                         <label for="exampleInputEmail1">status</label>
                                         <select class="form-select" name="status" aria-label="Default select example">
-                                            <option value="{{ $customer->status }}" selected>{{ $customer->status }}</option>
+                                            <option value="{{ $customer->status }}" selected>{{ $customer->status }}
+                                            </option>
                                             <option value="sale">Sale</option>
                                             <option value="lead">Lead</option>
                                             <option value="trial">Trial</option>
@@ -86,8 +88,9 @@
 
                                     <div class="col-6 mt-2">
                                         <label for="floatingTextarea">Mac Address</label>
-                                        <input type="text" class="form-control" name="make_address" id="exampleInputEmail1"
-                                        placeholder="Enter Mac Address" value="{{ $customer->make_address }}">
+                                        <input type="text" class="form-control" name="make_address"
+                                            id="exampleInputEmail1" placeholder="Enter Mac Address"
+                                            value="{{ $customer->make_address }}">
                                         @error('make_address')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

@@ -573,7 +573,8 @@ class dashboardController extends Controller
         return redirect()->route('expense')->with(['success' => 'updated successfuly']);
     }
 
-    public function deleteExpense(string $id){
+    public function deleteExpense(string $id)
+    {
         $expense =  expense::find($id);
 
         if ($expense->img && file_exists(public_path('upload/' .  $expense->img))) {

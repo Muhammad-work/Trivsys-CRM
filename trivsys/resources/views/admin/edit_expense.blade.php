@@ -16,14 +16,15 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('updateExpenseData',$expese->id)  }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <form action="{{ route('updateExpenseData', $expese->id) }}" method="POST"
+                            enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
 
                                     <div class="col-6 mt-2">
                                         <label for="exampleInputEmail1">Expense</label>
-                                        <textarea class="form-control" name="expense" placeholder="Enter Expense" id="floatingTextarea">{{  $expese->expense  }}</textarea>
+                                        <textarea class="form-control" name="expense" placeholder="Enter Expense" id="floatingTextarea">{{ $expese->expense }}</textarea>
                                         @error('expense')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -42,8 +43,8 @@
                                     <div class="col-6 mt-2">
                                         <label for="exampleInputEmail1">Img</label>
                                         <input type="file" class="form-control" name="img" id="exampleInputEmail1"
-                                            placeholder="Enter Customer Phone Number" value="{{ $expese->img  }}">
-                                        <img src="{{ asset('upload/' . $expese->img)  }}" alt="" style="width: 40px">
+                                            placeholder="Enter Customer Phone Number" value="{{ $expese->img }}">
+                                        <img src="{{ asset('upload/' . $expese->img) }}" alt="" style="width: 40px">
                                         @error('img')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
