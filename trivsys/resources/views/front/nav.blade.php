@@ -11,8 +11,9 @@
                 <li class=""><a href="{{ route('viewMeetingDonePage') }}" class="text-white">Meeting Done Page</a>
                 <li class=""><a href="{{ route('customerTrialTable') }}" class="text-white">Trial Page</a></li>
                 <li class=""><a href="{{ route('customerSalesTable') }}" class="text-white">Sale Page</a></li>
-                </li>
                 <li class=""><a href="{{ route('customerDeniedTable') }}" class="text-white">Denied Page</a></li>
+                <li class=""><a href="{{ route('viewexpensepage') }}" class="text-white">Expense Page</a></li>
+                <li class=""><a href="{{  route('viewExpenseForm')  }}" class="text-white">Expense</a></li>
                 <li class=""><a href="{{ route('viewHelpTable') }}" class="text-white">Help </a></li>
                 <li class=""><a href="{{ route('help') }}" class="text-white">Help Request</a></li>
             </ul>

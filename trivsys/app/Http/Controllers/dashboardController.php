@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use /DB;
 use App\Http\Controllers\Controller;
 use App\Models\customer;
+use App\Models\expense;
 use App\Models\help;
 use App\Models\oldCustomer;
 use App\Models\user;
@@ -531,5 +532,10 @@ class dashboardController extends Controller
         $customer = customer::find($id);
         $customer->delete();
         return  redirect()->route('viewAgentMeetingDoneTable')->with(['success' => 'Customer Deleted Successfuly']);
+    }
+
+    public function expense(){
+        $expese = expense::with('user')->get();
+        return view('admin.expense',compact('expese'));
     }
 }

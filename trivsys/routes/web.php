@@ -53,6 +53,7 @@ Route::controller(dashboardController::class)->group(function () {
     Route::get('/dashboard/{id}/cutomerUPdateMeetingDoneDetailFormVIew', 'cutomerUPdateMeetingDoneDetailFormVIew')->name('cutomerUPdateMeetingDoneDetailFormVIew')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/{id}/deleteCustomerMeetingDoneDetails', 'deleteCustomerMeetingDoneDetails')->name('deleteCustomerMeetingDoneDetails')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/viewAgentMeetingDoneTable', 'viewAgentMeetingDoneTable')->name('viewAgentMeetingDoneTable')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/expense', 'expense')->name('expense')->middleware(validUser::class)->middleware(validRole::class);
 });
 
 
@@ -100,7 +101,7 @@ Route::controller(CustomerController::class)->middleware(validUser::class)->grou
     Route::get('/customerSalesTable', 'customerSalesTable')->name('customerSalesTable');
     Route::get('/customerLeadTable', 'customerLeadTable')->name('customerLeadTable');
     Route::get('/customerTrialTable', 'customerTrialTable')->name('customerTrialTable');
-  
+
     Route::get('/{id}/edit-customer-numbers', 'viewCustomerNumberEditForm')->name('viewCustomerNumberEditForm');
     Route::post('/{id}/storeCustomerNumberEditDetails', 'storeCustomerNumberEditDetails')->name('storeCustomerNumberEditDetails');
 
@@ -119,6 +120,10 @@ Route::controller(CustomerController::class)->middleware(validUser::class)->grou
     Route::get('/customerDeniedTable', 'customerDeniedTable')->name('customerDeniedTable');
     Route::get('/meeting', 'viewMeetingPage')->name('viewMeetingPage');
     Route::get('/meeting-done', 'viewMeetingDonePage')->name('viewMeetingDonePage');
+
+    Route::get('/Expense', 'viewexpensepage')->name('viewexpensepage');
+    Route::get('/Expense-Form', 'viewExpenseForm')->name('viewExpenseForm');
+    Route::post('/storeExpenseData', 'storeExpenseData')->name('storeExpenseData');
 });
 
 

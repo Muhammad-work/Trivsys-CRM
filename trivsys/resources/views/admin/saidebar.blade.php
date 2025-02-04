@@ -80,6 +80,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('expense') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-money-bill"></i>
+                                <p>
+                                    Expense
+                                </p>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         <a href="{{ route('viewAgentTrialTable') }}" class="nav-link">
