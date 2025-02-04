@@ -534,8 +534,52 @@ class dashboardController extends Controller
         return  redirect()->route('viewAgentMeetingDoneTable')->with(['success' => 'Customer Deleted Successfuly']);
     }
 
-    public function expense(){
+    public function expense()
+    {
         $expese = expense::with('user')->get();
-        return view('admin.expense',compact('expese'));
+        return view('admin.expense', compact('expese'));
+    }
+
+    public function viewEditExpenseFrom(string $id)
+    {
+        $expese = expense::find($id);
+        return view('admin.edit_expense', compact('expese'));
+    }
+
+    public function updateExpenseData(Request $req, string $id)
+    {
+        $req->validate([
+            'expense' => 'required',
+            'price' => 'required|numeric',
+            'date' => 'required',
+        ]);
+
+        $expense =  expense::find($id);
+
+        if ($expense->img && file_exists(public_path('upload/' .  $expense->img))) {
+            unlink(public_path('upload/' .  $expense->img));
+        }
+
+        if ($req->hasFile('img')) {
+            $imageName = time() . '.' . $req->img->extension();
+            $req->img->move(public_path('upload'), $imageName);
+            $expense->img = $imageName;
+        }
+
+        $expense->expense = $req->expense;
+        $expense->price = $req->price;
+        $expense->date = $req->date;
+        $expense->save();
+        return redirect()->route('expense')->with(['success' => 'updated successfuly']);
+    }
+
+    public function deleteExpense(string $id){
+        $expense =  expense::find($id);
+
+        if ($expense->img && file_exists(public_path('upload/' .  $expense->img))) {
+            unlink(public_path('upload/' .  $expense->img));
+        }
+        $expense->delete();
+        return redirect()->route('expense')->with(['success' => 'Deleted successfuly']);
     }
 }

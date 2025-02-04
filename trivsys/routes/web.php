@@ -54,6 +54,9 @@ Route::controller(dashboardController::class)->group(function () {
     Route::get('/dashboard/{id}/deleteCustomerMeetingDoneDetails', 'deleteCustomerMeetingDoneDetails')->name('deleteCustomerMeetingDoneDetails')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/viewAgentMeetingDoneTable', 'viewAgentMeetingDoneTable')->name('viewAgentMeetingDoneTable')->middleware(validUser::class)->middleware(validRole::class);
     Route::get('/dashboard/expense', 'expense')->name('expense')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/{id}/edit-expense', 'viewEditExpenseFrom')->name('viewEditExpenseFrom')->middleware(validUser::class)->middleware(validRole::class);
+    Route::post('/dashboard/{id}/updateExpenseData', 'updateExpenseData')->name('updateExpenseData')->middleware(validUser::class)->middleware(validRole::class);
+    Route::get('/dashboard/{id}/deleteExpense', 'deleteExpense')->name('deleteExpense')->middleware(validUser::class)->middleware(validRole::class);
 });
 
 
@@ -132,4 +135,3 @@ Route::controller(HelpController::class)->group(function () {
     Route::get('/help-Detail', 'viewHelpTable')->name('viewHelpTable')->middleware(validUser::class);
     Route::post('/storeHelpRequest', 'storeHelpRequest')->name('storeHelpRequest')->middleware(validUser::class);
 });
-

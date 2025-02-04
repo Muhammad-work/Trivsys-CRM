@@ -40,6 +40,7 @@
                                     <th>IMG</th>
                                     <th>EXPENSE DATE</th>
                                     <th>AGENT</th>
+                                    <th>ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,6 +61,11 @@
                                             {{ \Carbon\Carbon::parse($data->date)->format('d M, Y') }}
                                         </td>
                                         <td>{{ $data['user']->name }}</td>
+                                        <td>
+                                            <a href="{{  route('viewEditExpenseFrom',$data->id)  }}" class="btn btn-primary"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                            <a href="{{  route('deleteExpense',$data->id)  }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
