@@ -446,8 +446,6 @@ class dashboardController extends Controller
                 ->get();
         }
         $customers = $oldcustomers;
-
-        //    return $cus
         return view('admin.meeting_table', compact('customers'));
     }
 

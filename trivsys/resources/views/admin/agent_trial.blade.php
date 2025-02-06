@@ -9,10 +9,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0 d-inline">All Agent Trial Report</h1>
-                    </div><!-- /.col -->
-                    {{-- <div class="col-sm-4">
-                        <h1 class="m-0 d-inline"><a href="{{ route('addUser') }}" class="btn btn-primary">Add New</a></h1>
-                    </div><!-- /.col --> --}}
+                    </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBord</a></li>
@@ -83,7 +80,7 @@
                                                     class="btn btn-success">Sale</a>
                                                 <a href="{{ route('deleteCustomerDetails', $customer->id) }}"
                                                     class="btn btn-danger">Cancel</a>
-                                               
+
                                             </td>
                                         @endif
                                     </tr>

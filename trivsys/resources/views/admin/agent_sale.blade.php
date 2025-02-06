@@ -44,8 +44,6 @@
                                         <td>
                                             <a href="{{ route('viewSaleTable',$customer['user']->id) }}"
                                                 class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
-                                            {{-- <a href="{{ route('viewAgentDistributeSale',$customer['user']->id) }}"
-                                                class="btn btn-primary">Distribute Sale</a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

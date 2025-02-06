@@ -40,11 +40,11 @@
                                 @foreach ($customers as $index => $customer)
                                     <tr>
                                         <td> {{ $index + 1 }} </td>
-                                        <td>{{$customer['user']->name}}</td>
+                                        <td>{{ $customer['user']->name }}</td>
                                         <td>
-                                            <a href="{{ route('viewleadtable',$customer['user']->id) }}"
+                                            <a href="{{ route('viewleadtable', $customer['user']->id) }}"
                                                 class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
-                                            <a href="{{ route('distributeLeadsForm',$customer['user']->id) }}"
+                                            <a href="{{ route('distributeLeadsForm', $customer['user']->id) }}"
                                                 class="btn btn-primary">Distribute Lead</a>
                                         </td>
                                     </tr>
