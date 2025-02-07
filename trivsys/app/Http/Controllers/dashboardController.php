@@ -584,8 +584,7 @@ class dashboardController extends Controller
     public function deleteExpense(string $id)
     {
         $expense =  expense::find($id);
-
-        if ($expense->img && file_exists(public_path('upload/' .  $expense->img))) {
+        if ($expense->img && file_exists(public_path('upload/' . $expense->img))) {
             unlink(public_path('upload/' .  $expense->img));
         }
         $expense->delete();
